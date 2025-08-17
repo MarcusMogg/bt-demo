@@ -1,10 +1,13 @@
 extends CanvasLayer
 
 # Notifies `Main` node that the button has been pressed
-signal start_game
+signal start_game(input:String)
+signal stop_game
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$Message.hide()
+	$StopButton.hide()
 	pass # Replace with function body.
 
 func show_message(text):
@@ -29,7 +32,17 @@ func update_score(score):
 
 func _on_start_button_pressed() -> void:
 	$StartButton.hide()
-	start_game.emit()
+	$XmlInputer.hide()
+	start_game.emit($XmlInputer.text)
+	$StopButton.show()
 
 func _on_message_timer_timeout() -> void:
 	$Message.hide()
+
+
+func _on_stop_button_pressed() -> void:
+	$StopButton.hide()
+	stop_game.emit()
+	$StartButton.show()
+	$XmlInputer.show()
+	

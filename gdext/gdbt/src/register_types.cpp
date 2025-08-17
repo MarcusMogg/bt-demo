@@ -14,6 +14,7 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
   }
 
   GDREGISTER_CLASS(BeehaveTree);
+  GDREGISTER_CLASS(BeehaveNode);
 }
 
 void uninitialize_example_module(ModuleInitializationLevel p_level) {

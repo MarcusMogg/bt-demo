@@ -5,6 +5,6 @@ compatibility_minimum = "4.1"
 reloadable = true
 
 [libraries]
-windows.debug.x86_64 = "res://gdext/build/windows/x64/release/gdbt.dll"
+windows.debug.x86_64 = "res://gdext/build/windows/x64/debug/gdbt.dll"
 windows.release.x86_64 = "res://gdext/build/windows/x64/release/gdbt.dll"
 

@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bahhahtnfya7"]
+[gd_scene load_steps=8 format=3 uid="uid://bahhahtnfya7"]
 
-[ext_resource type="Script" uid="uid://bvw63wvrobfvd" path="res://scene/main.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://bvw63wvrobfvd" path="res://src/main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://47kpounodjd6" path="res://scene/mod.tscn" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://ksfxgyow511n" path="res://scene/player.tscn" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://2k17lavsds4u" path="res://src/actions/moveto.gd" id="4_0ha60"]
 [ext_resource type="PackedScene" uid="uid://5o6gtyuw71tw" path="res://scene/hud.tscn" id="4_1bvp3"]
+[ext_resource type="Script" uid="uid://dsqflscqdm2jw" path="res://src/actions/move.gd" id="5_4j5ol"]
 
 [sub_resource type="Curve2D" id="Curve2D_7dm0k"]
 _data = {
@@ -34,10 +36,20 @@ rotation = 0.00253036
 
 [node name="Player" parent="." instance=ExtResource("3_h2yge")]
 
+[node name="BeehaveTree" type="BeehaveTree" parent="Player"]
+
+[node name="MoveTo" type="BeehaveNode" parent="Player/BeehaveTree"]
+input_ports = Array[String](["goal"])
+script = ExtResource("4_0ha60")
+
+[node name="Move" type="BeehaveNode" parent="Player/BeehaveTree"]
+input_ports = Array[String](["dir", "dis"])
+script = ExtResource("5_4j5ol")
+
 [node name="Hud" parent="." instance=ExtResource("4_1bvp3")]
 
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
-[connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="start_game" from="Hud" to="." method="new_game"]
+[connection signal="stop_game" from="Hud" to="." method="stop_game"]
