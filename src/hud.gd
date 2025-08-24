@@ -33,6 +33,8 @@ func update_score(score):
 func _on_start_button_pressed() -> void:
 	$StartButton.hide()
 	$XmlInputer.hide()
+	$ChatBox.hide()
+
 	start_game.emit($XmlInputer.text)
 	$StopButton.show()
 
@@ -45,4 +47,7 @@ func _on_stop_button_pressed() -> void:
 	stop_game.emit()
 	$StartButton.show()
 	$XmlInputer.show()
-	
+	$ChatBox.show()
+
+func _on_python_exec_llm_xml_output(output: String) -> void:
+	$XmlInputer.text = output

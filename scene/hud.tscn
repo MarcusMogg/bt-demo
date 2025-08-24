@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://5o6gtyuw71tw"]
+[gd_scene load_steps=5 format=3 uid="uid://5o6gtyuw71tw"]
 
 [ext_resource type="FontFile" uid="uid://cm7sfqav7lc77" path="res://fonts/Xolonium-Regular.ttf" id="1_37p78"]
 [ext_resource type="Script" uid="uid://c2kdxwmr20m04" path="res://src/hud.gd" id="1_64ctp"]
+[ext_resource type="PackedScene" uid="uid://boiwpsn22rod0" path="res://scene/ChatBox.tscn" id="3_pvgpj"]
+[ext_resource type="Script" uid="uid://bu4aigynoqqi7" path="res://scene/python_exec.gd" id="4_nhyt6"]
 
 [node name="Hud" type="CanvasLayer"]
 script = ExtResource("1_64ctp")
@@ -66,14 +68,14 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -791.0
+offset_left = -19.0
 offset_top = -435.0
 offset_right = 833.0
 offset_bottom = 211.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("1_37p78")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 30
 text = " <root BTCPP_format=\"4\">
      <BehaviorTree>
 		<Sequence>
@@ -102,6 +104,18 @@ theme_override_fonts/font = ExtResource("1_37p78")
 theme_override_font_sizes/font_size = 64
 text = "Stop"
 
+[node name="ChatBox" parent="." instance=ExtResource("3_pvgpj")]
+offset_left = 56.0
+offset_top = 109.0
+offset_right = -1095.0
+offset_bottom = -340.0
+
+[node name="PythonExec" type="Node" parent="."]
+script = ExtResource("4_nhyt6")
+
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]
 [connection signal="pressed" from="StopButton" to="." method="_on_stop_button_pressed"]
+[connection signal="on_message_submit" from="ChatBox" to="PythonExec" method="_on_chat_box_on_message_submit"]
+[connection signal="llm_output" from="PythonExec" to="ChatBox" method="_on_python_exec_llm_output"]
+[connection signal="llm_xml_output" from="PythonExec" to="." method="_on_python_exec_llm_xml_output"]

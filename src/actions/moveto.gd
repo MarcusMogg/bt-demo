@@ -40,5 +40,5 @@ func _tick(actor: Node) -> NodeStatus:
 	
 	return NodeStatus.RUNNING
 
-func _halt(actor: Node) -> void:
+func _halt(_actor: Node) -> void:
 	print("halt")
